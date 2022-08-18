@@ -4,15 +4,15 @@ def read_file_in_dict():
     flag = 0
     with open("recipes.txt", "r", encoding="utf-8") as file:
         for line in file:
-            if line.rstrip():
+            if line.rstrip('\n'):
                 if quantity_ingredients == 0 and flag == 0:
-                    dish = line.rstrip()
+                    dish = line.rstrip('\n')
                     cook_book[dish] = []
                     flag = 1
                 elif quantity_ingredients == 0 and flag == 1:
-                    quantity_ingredients = int(line.rstrip())
+                    quantity_ingredients = int(line.rstrip('\n'))
                 else:
-                    ingridient = line.rstrip().split(" | ")
+                    ingridient = line.rstrip('\n').split(" | ")
                     cook_book[dish].append({'ingredient_name': ingridient[0],
                                             'quantity': int(ingridient[1]),
                                             'measure': ingridient[2]})
