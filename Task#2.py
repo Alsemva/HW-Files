@@ -21,5 +21,19 @@ def read_file_in_dict():
                         flag = True
         return cook_book
 
+def counting_ingredients_for_person(ingredient_dish, person_count):
+    result = {}
+    result['measure'] = ingredient_dish['measure']
+    result['quantity'] = ingredient_dish['quantity'] * person_count
+    return result
 
-print(read_file_in_dict())
+def get_shop_list_by_dishes(dishes, person_count):
+    cook_book = read_file_in_dict()
+    ingredients = {}
+    for dish in dishes:
+        for ingredient_dish in cook_book[dish]:
+            ingredients[ingredient_dish['ingredient_name']] = counting_ingredients_for_person(ingredient_dish, person_count)
+    print(ingredients)
+
+
+get_shop_list_by_dishes(['Омлет'], 2)
