@@ -29,4 +29,5 @@ def merging_files(directory):
                 f.write('\n')
     return 'Sorted'
 
+
 print(merging_files(listdir('sorted')))
