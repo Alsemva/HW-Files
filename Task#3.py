@@ -2,25 +2,20 @@ from os import listdir
 
 
 def open_file_in_dict(directory):
-    files_catalog = {}
+    file_text = {}
+    counter_file_text = {}
     for file in directory:
         with open(f'sorted/{file}', "r", encoding="utf-8") as f:
-            files_catalog[file] = f.readlines()
-    return files_catalog
+            file_text[file] = f.readlines()
+        counter_file_text[len(file_text[file])] = file_text.copy()
+        file_text.clear()
+    return counter_file_text
 
 
 def sorting_files(directory):
     files_catalog = open_file_in_dict(directory)
-    sort_list_files = {}
-    print(sort_list_files)
-    max = 0
-    for file, text in files_catalog.items():
-        print(file)
-        print(len(text))
-        sort_list_files[len(text)] = {file: text}
-    sorted_tuple = sorted(sort_list_files.items(), key=lambda x: x[0])
-    print(dict(sorted_tuple))
-    return  dict(sorted_tuple)
+    sorted_tuple = sorted(files_catalog.items(), key=lambda x: x[0])
+    return dict(sorted_tuple)
 
 
 def merging_files(directory):
