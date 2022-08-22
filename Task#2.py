@@ -22,27 +22,25 @@ def read_file_in_dict():
         return cook_book
 
 
-def counting_ingredients_for_person(ingredient_dish, person_count):
+def counting_ingredients_for_person(ingredient_dish, person_count, temp):
     result = {}
     result['measure'] = ingredient_dish['measure']
-    result['quantity'] = ingredient_dish['quantity'] * person_count
+    result['quantity'] = ingredient_dish['quantity'] * person_count + temp
     return result
 
 
 def get_shop_list_by_dishes(dishes, person_count):
     cook_book = read_file_in_dict()
     ingredients = {}
-    counter_ingredients = {}
+    temp = 0
     for dish in dishes:
         for ingredient_dish in cook_book[dish]:
-            if ingredient_dish['ingredient_name'] not in counter_ingredients:
-                counter_ingredients[ingredient_dish['ingredient_name']] = 1
-            else:
-                counter_ingredients[ingredient_dish['ingredient_name']] += 1
+            if ingredient_dish['ingredient_name'] in ingredients:
+                temp = ingredients[ingredient_dish['ingredient_name']]['quantity']
             ingredients[ingredient_dish['ingredient_name']] = \
-                counting_ingredients_for_person(ingredient_dish,
-                                                person_count*counter_ingredients[ingredient_dish['ingredient_name']])
-    print(ingredients)
+                counting_ingredients_for_person(ingredient_dish, person_count, temp)
+            temp = 0
+    return ingredients
 
 
-get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
+print(get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2))
